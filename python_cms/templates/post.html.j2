@@ -1,0 +1,24 @@
+{% extends 'base.html.j2' %}
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+  {% if post.id is not defined %}
+    <h1>Post not found</h1>
+  {% else %}
+  <div class="title-container">
+    <h1>{{ post.title }}</h1>
+    {% if current_user.id == post.author_id %}
+      <div class="tooltip">
+        <form action="/post/delete/{{ post.id }}" method="post">
+          <button type="submit" class="delete-button">Delete</button>
+        </form>
+        <span class="tooltip-text">Permanently delete this post</span>
+      </div>
+    {% endif %}
+  </div>
+  <img src="/files/{{post.teaser_image}}" class="img-responsive article-image-inner" alt="">
+  {{ post.body|safe }}
+  {% endif %}
+{% endblock %}
+
+

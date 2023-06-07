@@ -1,0 +1,135 @@
+body {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+header {
+  padding: 20px;
+  background-color: #ebedff;
+}
+
+main {
+  margin-top: 40px;
+}
+
+.chip {
+  overflow: initial;
+}
+
+.user-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-submenu {
+  display: none;
+}
+
+.article-card {
+  margin-top: 10px;
+}
+
+.article-image {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.article-image-inner {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.user-menu:hover > .user-submenu {
+  position: absolute;
+  top: 30px;
+  top: 20px;
+  height: 90px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #d7edff;
+  border-radius: 20px;
+}
+
+.user-menu > .user-submenu a {
+  margin-top: 10px;
+}
+
+.ck-editor__editable_inline {
+  min-height: 400px;
+}
+
+#createPost {
+  margin-top: 20px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: darkgray;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
+.delete-button {
+  background-color: orange;
+  color: white; 
+  float: right; 
+  border: none; 
+  padding: 6px 12px; 
+  text-decoration: none; 
+  font-size: 16px;
+  margin: 20px 0;
+  transition: 0.3s; 
+}
+
+.delete-button:hover {
+  background-color: darkorange;
+  text-decoration: none; 
+}
+
+.delete-button {
+  background-color: orange;
+  color: white;  /* Szöveg színe legyen fehér, hogy látható legyen a narancssárga háttéren */
+  float: right;  /* Jobbra igazítás */
+  border: none;  /* Gomb keret eltávolítása */
+  padding: 6px 12px;  /* Padding az esztétikai megjelenéshez */
+  text-decoration: none;  /* Aláhúzás eltávolítása a linkről */
+  font-size: 16px;  /* Szövegméret beállítása */
+  margin: 20px 0;  /* Margó a gomb körül, hogy legyen helye a jobb felső sarokban */
+  transition: 0.3s;  /* Átmenet a hover hatásra */
+}
+
+.delete-button:hover {
+  background-color: darkorange;  /* Háttérszín változtatása amikor ráviszed az egeret a gombra */
+  text-decoration: none;  /* Aláhúzás eltávolítása a linkről */
+}

@@ -1,0 +1,43 @@
+{% extends "base.html.j2" %}
+{% block title %}Create Post{% endblock %}
+{% block headsource %}
+  {{ ckeditor.load() }}
+{% endblock %}
+{% block content %}
+  <h1>Create post</h1>
+    {% for message in get_flashed_messages() %}
+      <div class="toast toast-success">
+          <button class="btn btn-clear float-right"></button>
+            {{message}}
+      </div>
+    {% endfor %}
+
+
+
+  <form action="/add" method="POST" class="form-group" enctype="multipart/form-data">
+    {{ form.csrf_token() }}
+    <label for="title">{{ form.title.label }}</label>
+    {{ form.title(class="form-input", placeholder="title") }}
+
+    {% if form.errors.teaser_image is defined %}
+        {% for error in form.errors.teaser_image %}
+          <div class="toast toast-error">
+            <button class="btn btn-clear float-right"></button>
+              {{error}}
+          </div>
+        {% endfor %}
+    {% endif %}
+
+    <label for="teaser_image">{{ form.teaser_image.label }}</label>
+    {{ form.teaser_image(class="form-input") }}
+
+    <label for="body">{{ form.body.label }}</label>
+    {{ form.body(class="form-input", placeholder="your article goes here", id='body') }}
+    {{ form.submit(class="btn btn-primary input-group-btn float-right", id="createPost") }}
+    {{ ckeditor.config(name='body') }}
+  </form>
+{% endblock %}
+
+{% block bodysource %}
+<script src="{{url_for('static', filename='create_post.js')}}"></script>
+{% endblock %}

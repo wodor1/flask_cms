@@ -16,9 +16,11 @@
       </div>
     {% endif %}
   </div>
-  <img src="/files/{{post.teaser_image}}" class="img-responsive article-image-inner" alt="">
+  {% if post.teaser_image != "" %}
+    <img src="/files/{{post.teaser_image}}" class="img-responsive article-image-inner" alt="">
+  {% else %}
+    <img src="{{ url_for('static', filename='default.jpg') }}" class="img-responsive article-image-inner" alt="">
+  {% endif %}
   {{ post.body|safe }}
   {% endif %}
 {% endblock %}
-
-

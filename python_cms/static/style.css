@@ -75,31 +75,6 @@ main {
   align-items: center;
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  background-color: darkgray;
-  color: white;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-}
-
 .delete-button {
   background-color: orange;
   color: white; 
@@ -117,19 +92,26 @@ main {
   text-decoration: none; 
 }
 
-.delete-button {
-  background-color: orange;
-  color: white;  /* Szöveg színe legyen fehér, hogy látható legyen a narancssárga háttéren */
-  float: right;  /* Jobbra igazítás */
-  border: none;  /* Gomb keret eltávolítása */
-  padding: 6px 12px;  /* Padding az esztétikai megjelenéshez */
-  text-decoration: none;  /* Aláhúzás eltávolítása a linkről */
-  font-size: 16px;  /* Szövegméret beállítása */
-  margin: 20px 0;  /* Margó a gomb körül, hogy legyen helye a jobb felső sarokban */
-  transition: 0.3s;  /* Átmenet a hover hatásra */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 }
 
-.delete-button:hover {
-  background-color: darkorange;  /* Háttérszín változtatása amikor ráviszed az egeret a gombra */
-  text-decoration: none;  /* Aláhúzás eltávolítása a linkről */
+.post-title {
+  margin-right: auto;
+}
+
+.edit-button {
+  padding: 6px 12px;
+  background-color: rgb(180, 87, 180);
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.edit-button:hover {
+  background-color: darkmagenta;
+  color: white;
+  text-decoration: none;
 }

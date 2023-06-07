@@ -6,6 +6,7 @@ from os import path
 import python_cms
 from flask_login import current_user
 from bs4 import BeautifulSoup
+from python_cms.db import db
 
 from python_cms.forms.post_form import PostForm
 from python_cms.models.post import PostModel
@@ -98,3 +99,61 @@ def upload():
     url = url_for('pages.files', filename=f.filename)
     # return upload_success call
     return upload_success(url, filename=f.filename)
+
+
+@pages_blueprint.route('/post/delete/<string:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = PostModel.get(post_id)
+    if post is None:
+        abort(404, "Post not found")  # You can return a custom error page here
+
+    if current_user.id != post.author_id:
+        return ("You are not authorized to delete this post", 403)
+
+    post.delete()
+    db.session.commit()
+
+    flash("The post has been successfully deleted.")
+    # replace 'index' with the route of your home page
+    return redirect(url_for('pages.index'))
+
+
+@login_required
+@pages_blueprint.route("/post/edit/<string:post_id>", methods=['GET', 'POST'])
+def edit_post(post_id):
+    # Lekérdezzük a postot az adatbázisból.
+    post = PostModel.get(post_id)
+
+    # Ellenőrizzük, hogy a jelenleg bejelentkezett felhasználó-e a szerzője a bejegyzésnek.
+    if current_user.id != post.author_id:
+        abort(403, description="You do not have the right permissions to edit this post")
+
+    # Példányosítjuk a formot.
+    form = PostForm()
+
+    # Ha a formot elküldték, és valid, akkor frissítjük a bejegyzést.
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.body = sanitize_html(form.body.data)
+
+        # Ha van új kép, akkor azt is frissítjük.
+        if 'teaser_image' in request.files:
+            file = request.files["teaser_image"]
+            filename = secure_filename(file.filename)
+            file.save(path.join(python_cms.ROOT_PATH, 'files_upload', filename))
+            post.teaser_image = filename
+
+        # Frissítjük az adatbázisban.
+        db.session.commit()
+
+        flash("The post was successfully updated!", "success")
+        return redirect(url_for('pages.view_post', post_id=post.id))
+
+    # Ha GET kéréssel jöttek az oldalra, akkor betöltjük a formot a bejegyzés adataival.
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.body.data = post.body
+
+    # Végül visszaadjuk a formot a felhasználónak.
+    return render_template('edit_post.html.j2', form=form, post_id=post_id)

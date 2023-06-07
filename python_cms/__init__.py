@@ -56,21 +56,3 @@ with app.app_context():
     if not path.exists(files_path):
         print("Creating files_upload folder...")
         mkdir(files_path)
-
-
-@app.route('/post/delete/<string:post_id>', methods=['POST'])
-@login_required
-def delete_post(post_id):
-    post = PostModel.get(post_id)
-    if post is None:
-        abort(404, "Post not found")  # You can return a custom error page here
-
-    if current_user.id != post.author_id:
-        return ("You are not authorized to delete this post", 403)
-
-    post.delete()
-    db.session.commit()
-
-    flash("The post has been successfully deleted.")
-    # replace 'index' with the route of your home page
-    return redirect(url_for('pages.index'))

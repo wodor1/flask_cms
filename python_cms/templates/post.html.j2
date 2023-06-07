@@ -6,16 +6,16 @@
     <h1>Post not found</h1>
   {% else %}
   <div class="title-container">
-    <h1>{{ post.title }}</h1>
-    {% if current_user.id == post.author_id %}
-      <div class="tooltip">
-        <form action="/post/delete/{{ post.id }}" method="post">
-          <button type="submit" class="delete-button">Delete</button>
-        </form>
-        <span class="tooltip-text">Permanently delete this post</span>
-      </div>
-    {% endif %}
-  </div>
+  <h1>{{ post.title }}</h1>
+  {% if current_user.id == post.author_id %}
+    <div>
+      <form action="/post/delete/{{ post.id }}" method="post">
+        <button type="submit" class="delete-button" title="Permanently delete this post">Delete</button>
+      </form>
+      <a href="/post/edit/{{ post.id }}" class="edit-button" title="Edit this post">Edit</a>
+    </div>
+  {% endif %}
+</div>
   {% if post.teaser_image != "" %}
     <img src="/files/{{post.teaser_image}}" class="img-responsive article-image-inner" alt="">
   {% else %}
